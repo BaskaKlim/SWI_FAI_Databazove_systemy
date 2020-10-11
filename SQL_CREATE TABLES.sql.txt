@@ -1,0 +1,47 @@
+CREATE TABLE Authors (
+NAME varchar(256) not null,
+TOPIC  varchar(1024) not null,    
+COUNTRY varchar(256) null,
+PRIMARY KEY (NAME))
+
+
+CREATE TABLE BookChallenges (
+ID_YEAR int not null,
+NUMBER_OF_BOOKS int not null,
+PROGRESS int null,
+PRIMARY KEY (ID_YEAR))
+
+
+CREATE TABLE Books (
+        ISBN varchar(256) not null,
+        TITLE varchar(256) not null,    
+           AUTHOR varchar(256) not null,    
+             BOOK_DESCRIPTION  text not null,    
+             TOPIC varchar(256) not null,    
+             PUBLISHER varchar(256) null,    
+            YEAR_OF_PUBLISHING int null,
+            READING_STATE varchar(256) null,    
+            BORROWED bit default 'FALSE',
+            RATING int null,
+           PERSONAL_NOTES text null,    
+            BOOKCHALLENGE int null,    
+PRIMARY KEY(ISBN),
+FOREIGN KEY(AUTHOR) REFERENCES Authors (NAME) ON DELETE CASCADE,
+FOREIGN KEY (BOOKCHALLENGE) REFERENCES BookChallenges(ID_YEAR) 
+);
+
+
+CREATE TABLE Wishlist(
+           ISBN varchar(256) not null,
+        TITLE varchar(256) not null,    
+            AUTHOR varchar(256) not null,    
+            BOOK_DESCRIPTION  text not null,    
+            TOPIC varchar(256) not null,    
+            PUBLISHER varchar(256) null,    
+            YEAR_OF_PUBLISHING int null,
+            DATE_OF_ADDING datetime not null,
+            BOOKCHALLENGE int null,    
+PRIMARY KEY(ISBN),
+FOREIGN KEY(AUTHOR) REFERENCES Authors (NAME) ON DELETE CASCADE,
+FOREIGN KEY(BOOKCHALLENGE) REFERENCES BookChallenges(ID_YEAR) 
+);
